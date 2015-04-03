@@ -38,6 +38,7 @@ if(GDAL_PAM_ENABLED)
 	add_definitions(-DPAM_ENABLED)
 endif(GDAL_PAM_ENABLED)
 
+include_directories(${GDAL_ROOT_SOURCE_DIR}/gcore)
 include_directories(${GDAL_ROOT_SOURCE_DIR}/ogr)
 include_directories(${GDAL_ROOT_SOURCE_DIR}/alg)
 include_directories(${GDAL_ROOT_SOURCE_DIR}/frmts/gtiff)
