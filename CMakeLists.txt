@@ -91,7 +91,6 @@ endif(WIN32)
 
 if(MSVC)
     if(CMAKE_CL_64)
-        set_target_properties(${GDAL_LIB_NAME} PROPERTIES STATIC_LIBRARY_FLAGS "/machine:x64")
         add_definitions(-D_WIN64)
     endif()
 endif()
@@ -147,6 +146,12 @@ endif(GDAL_TARGET_LINK_LIB)
 # if(PROJ_FOUND)
     # target_link_libraries(${GDAL_LIB_NAME} ${PROJ_LIBRARY})
 # endif(PROJ_FOUND)
+
+if(MSVC)
+    if(CMAKE_CL_64)
+        set_target_properties(${GDAL_LIB_NAME} PROPERTIES STATIC_LIBRARY_FLAGS "/machine:x64")
+    endif()
+endif()
 
 set_target_properties(${GDAL_LIB_NAME}
 	PROPERTIES PROJECT_LABEL ${PROJECT_NAME}
