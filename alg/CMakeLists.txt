@@ -110,7 +110,7 @@ if(OPENCL_FOUND)
 		gdalwarpkernel_opencl.h
 	)
 	
-	set(LIB_CSOURCES
+	set(LIB_CSOURCES ${LIB_CSOURCES}
 		gdalwarpkernel_opencl.c
 	)
 endif(OPENCL_FOUND)
