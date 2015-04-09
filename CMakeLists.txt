@@ -165,6 +165,11 @@ set_target_properties(${GDAL_LIB_NAME}
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 	
 
+if (APPLE)
+  set_target_properties(${GDAL_LIB_NAME}
+    PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}")
+endif ()
+
 if(WIN32)
     if(CMAKE_CL_64)
         install(TARGETS ${GDAL_LIB_NAME}
