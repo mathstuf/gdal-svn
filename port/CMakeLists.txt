@@ -265,7 +265,6 @@ set(LIB_CSOURCES
     cpl_path.cpp 
     cpl_quad_tree.cpp 
     cpl_recode.cpp 
-    cpl_recode_iconv.cpp 
     cpl_recode_stub.cpp 
     cpl_string.cpp 
     cpl_strtod.cpp 
@@ -289,6 +288,11 @@ set(LIB_CSOURCES
     cpl_google_oauth2.cpp
     cpl_progress.cpp
 )
+
+if (HAVE_ICONV)
+    list(APPEND LIB_CSOURCES
+        cpl_recode_iconv.cpp)
+endif ()
 
 #check zip and internal zip
 option(GDAL_USE_LIBZ "Set ON to use libz" ON)
