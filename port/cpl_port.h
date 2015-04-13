@@ -394,7 +394,7 @@ char * strdup (char *instr);
  * This should be defined in the Makefile, but if it is not then
  * the default is CPL_LSB (Intel ordering, LSB first).
  *--------------------------------------------------------------------*/
-#if defined(WORDS_BIGENDIAN) && !defined(CPL_MSB) && !defined(CPL_LSB)
+#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN && !defined(CPL_MSB) && !defined(CPL_LSB)
 #  define CPL_MSB
 #endif
 
