@@ -290,6 +290,7 @@ set(LIB_CSOURCES
 )
 
 if (HAVE_ICONV)
+    include_directories(${ICONV_INCLUDE_DIR})
     list(APPEND LIB_CSOURCES
         cpl_recode_iconv.cpp)
 endif ()
