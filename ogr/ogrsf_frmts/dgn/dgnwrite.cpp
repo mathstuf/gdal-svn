@@ -2127,7 +2127,7 @@ static void DGNPointToInt( DGNInfo *psDGN, DGNPoint *psPoint,
 
         nCTI = (GInt32) MAX(-2147483647,MIN(2147483647,adfCT[i]));
         
-#ifdef WORDS_BIGENDIAN 
+#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
         pabyTarget[i*4+0] = pabyCTI[1];
         pabyTarget[i*4+1] = pabyCTI[0];
         pabyTarget[i*4+2] = pabyCTI[3];

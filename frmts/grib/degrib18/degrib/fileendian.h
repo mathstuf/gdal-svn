@@ -26,7 +26,7 @@
 #undef BIG_ENDIAN
 #undef LITTLE_ENDIAN
 
-#ifdef WORDS_BIGENDIAN
+#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
   #define BIG_ENDIAN
 #else
   #define LITTLE_ENDIAN

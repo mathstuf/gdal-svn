@@ -106,7 +106,7 @@ TIFFClientOpen(
 		} n;
 		n.a8[0]=1;
 		n.a8[1]=0;
-		#ifdef WORDS_BIGENDIAN
+		#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
 		assert(n.a16==256);
 		#else
 		assert(n.a16==1);
@@ -218,13 +218,13 @@ TIFFClientOpen(
 	for (cp = mode; *cp; cp++)
 		switch (*cp) {
 			case 'b':
-				#ifndef WORDS_BIGENDIAN
+				#if !defined(WORDS_BIGENDIAN) || !WORDS_BIGENDIAN
 				if (m&O_CREAT)
 					tif->tif_flags |= TIFF_SWAB;
 				#endif
 				break;
 			case 'l':
-				#ifdef WORDS_BIGENDIAN
+				#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
 				if ((m&O_CREAT))
 					tif->tif_flags |= TIFF_SWAB;
 				#endif
@@ -278,7 +278,7 @@ TIFFClientOpen(
 		/*
 		 * Setup header and write.
 		 */
-		#ifdef WORDS_BIGENDIAN
+		#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
 		tif->tif_header.common.tiff_magic = tif->tif_flags & TIFF_SWAB
 		    ? TIFF_LITTLEENDIAN : TIFF_BIGENDIAN;
 		#else
@@ -323,11 +323,11 @@ TIFFClientOpen(
 		 * Setup the byte order handling.
 		 */
 		if (tif->tif_header.common.tiff_magic == TIFF_BIGENDIAN) {
-			#ifndef WORDS_BIGENDIAN
+			#if !defined(WORDS_BIGENDIAN) || !WORDS_BIGENDIAN
 			tif->tif_flags |= TIFF_SWAB;
 			#endif
 		} else {
-			#ifdef WORDS_BIGENDIAN
+			#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
 			tif->tif_flags |= TIFF_SWAB;
 			#endif
 		}
@@ -367,11 +367,11 @@ TIFFClientOpen(
 		goto bad;
 	}
 	if (tif->tif_header.common.tiff_magic == TIFF_BIGENDIAN) {
-		#ifndef WORDS_BIGENDIAN
+		#if !defined(WORDS_BIGENDIAN) || !WORDS_BIGENDIAN
 		tif->tif_flags |= TIFF_SWAB;
 		#endif
 	} else {
-		#ifdef WORDS_BIGENDIAN
+		#if defined(WORDS_BIGENDIAN) && WORDS_BIGENDIAN
 		tif->tif_flags |= TIFF_SWAB;
 		#endif
 	}
