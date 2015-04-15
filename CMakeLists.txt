@@ -167,7 +167,7 @@ set_target_properties(${GDAL_LIB_NAME}
 
 if (APPLE)
   set_target_properties(${GDAL_LIB_NAME}
-    PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}")
+    PROPERTIES INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
 
 if(WIN32)
