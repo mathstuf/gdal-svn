@@ -191,4 +191,6 @@ else(WIN32)
 	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
 endif(WIN32) 
     
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/ DESTINATION ${CMAKE_INSTALL_PREFIX}/share/gdal)
+
 add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
