@@ -182,15 +182,16 @@ if(WIN32)
 			ARCHIVE DESTINATION lib
 			LIBRARY DESTINATION lib)
     endif(CMAKE_CL_64)
-	install(FILES ${GDAL_ROOT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(FILES ${GDAL_ROOT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(DIRECTORY data/ DESTINATION data)
 else(WIN32)
     install(TARGETS ${GDAL_LIB_NAME}
         RUNTIME DESTINATION bin
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib)
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(DIRECTORY data/ DESTINATION share/gdal)
 endif(WIN32)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/data/ DESTINATION ${CMAKE_INSTALL_PREFIX}/share/gdal)
 
 add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
