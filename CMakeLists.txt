@@ -4,7 +4,7 @@
 # * Author: Dmitriy Baryshnikov (aka Bishop), polimax@mail.ru
 # ******************************************************************************
 # * Copyright (C) 2012,2013 Bishop
-# * 
+# *
 # * Permission is hereby granted, free of charge, to any person obtaining a
 # * copy of this software and associated documentation files (the "Software"),
 # * to deal in the Software without restriction, including without limitation
@@ -42,14 +42,14 @@ string(REGEX MATCH "GDAL_VERSION_MINOR[ \t]+([0-9]+)"
 string (REGEX MATCH "([0-9]+)"
   GDAL_MINOR_VERSION ${GDAL_MINOR_VERSION})
 string(REGEX MATCH "GDAL_VERSION_REV[ \t]+([0-9]+)"
-  GDAL_REV_VERSION ${GDAL_VERSION_H_CONTENTS})  
+  GDAL_REV_VERSION ${GDAL_VERSION_H_CONTENTS})
 string (REGEX MATCH "([0-9]+)"
   GDAL_REV_VERSION ${GDAL_REV_VERSION})
-    
+
 # Setup package meta-data
 set(GDAL_VERSION ${GDAL_MAJOR_VERSION}.${GDAL_MINOR_VERSION}.${GDAL_REV_VERSION})
 message(STATUS "gdal version=[${GDAL_VERSION}]")
-    
+
 set(GDAL_LIB_NAME gdal${GDAL_MAJOR_VERSION}${GDAL_MINOR_VERSION})
 message(STATUS "GDAL lib name ... " ${GDAL_LIB_NAME})
 
@@ -69,7 +69,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 # uninstall target
 configure_file(${CMAKE_MODULE_PATH}/cmake_uninstall.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake IMMEDIATE @ONLY)
-   
+
 # For windows, do not allow the compiler to use default target (Vista).
 if(WIN32)
   add_definitions(-D_WIN32_WINNT=0x0501 -D_USRDLL)
@@ -80,7 +80,7 @@ if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE)
   add_definitions(-D_MBCS)
   set(GDAL_CSOURCES ${GDAL_CSOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/gcore/Version.rc)
-  source_group("Resource Files" FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/Version.rc)  
+  source_group("Resource Files" FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/Version.rc)
 endif(MSVC)
 
 add_definitions(-DSTRICT)
@@ -125,12 +125,12 @@ list(REMOVE_DUPLICATES GDAL_TARGET_OBJECTS)
 foreach(TO ${GDAL_TARGET_OBJECTS})
 	message(STATUS "gdal link=${TO}")
 endforeach(TO)
-  
+
 option(GDAL_BUILD_SHARED "Set ON to build shared library" ON)
 if(GDAL_BUILD_SHARED)
-	add_library(${GDAL_LIB_NAME} SHARED ${GDAL_CSOURCES} ${GDAL_TARGET_OBJECTS})#${GDAL_HHEADERS} 
+	add_library(${GDAL_LIB_NAME} SHARED ${GDAL_CSOURCES} ${GDAL_TARGET_OBJECTS})#${GDAL_HHEADERS}
 else(GDAL_BUILD_SHARED)
-	add_library(${GDAL_LIB_NAME} STATIC ${GDAL_CSOURCES} ${GDAL_TARGET_OBJECTS})#${GDAL_HHEADERS} 
+	add_library(${GDAL_LIB_NAME} STATIC ${GDAL_CSOURCES} ${GDAL_TARGET_OBJECTS})#${GDAL_HHEADERS}
 endif(GDAL_BUILD_SHARED)
 
 configure_file(${CMAKE_MODULE_PATH}/gdal_def.cmake ${GDAL_ROOT_SOURCE_DIR}/gcore/gdal_def.h @ONLY)
@@ -145,7 +145,7 @@ endif(GDAL_TARGET_LINK_LIB)
 if(WIN32)
 	target_link_libraries(${GDAL_LIB_NAME} ws2_32)
 endif(WIN32)
- 
+
 # if(PROJ_FOUND)
     # target_link_libraries(${GDAL_LIB_NAME} ${PROJ_LIBRARY})
 # endif(PROJ_FOUND)
@@ -163,7 +163,7 @@ set_target_properties(${GDAL_LIB_NAME}
 	ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-	
+
 
 if (APPLE)
   set_target_properties(${GDAL_LIB_NAME}
@@ -182,13 +182,16 @@ if(WIN32)
 			ARCHIVE DESTINATION lib
 			LIBRARY DESTINATION lib)
     endif(CMAKE_CL_64)
-	install(FILES ${GDAL_ROOT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(FILES ${GDAL_ROOT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(DIRECTORY data/ DESTINATION data)
 else(WIN32)
     install(TARGETS ${GDAL_LIB_NAME}
         RUNTIME DESTINATION bin
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib)
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
-endif(WIN32) 
-    
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/gcore/gdal_def.h DESTINATION include/gdal)
+    install(DIRECTORY data/ DESTINATION share/gdal)
+endif(WIN32)
+
+
 add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
