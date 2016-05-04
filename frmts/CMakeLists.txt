@@ -112,6 +112,12 @@ if(GDAL_ENABLE_FRMT_OZIMAP)
 	add_subdirectory(map)
 endif(GDAL_ENABLE_FRMT_OZIMAP)
 
+option(GDAL_ENABLE_FRMT_USGSDEM "Set ON to build usgsdem driver" ON)
+if(GDAL_ENABLE_FRMT_USGSDEM)
+  add_definitions(-DFRMT_usgsdem)
+  add_subdirectory(usgsdem)
+endif()
+
 include(CMakeDependentOption)
 
 CMAKE_DEPENDENT_OPTION(GDAL_ENABLE_FRMT_WMS "Set ON to build wms driver" OFF "GDAL_USE_CURL" OFF)
