@@ -100,20 +100,23 @@ set(LIB_CSOURCES
 	gdal_octave.cpp
 )
 
-find_package(OpenCL)
-if(OPENCL_FOUND)
-	include_directories(${GEOS_INCLUDE_DIRS})
-	add_definitions(-DHAVE_OPENCL)
-	set(GDAL_HAVE_OPENCL ON PARENT_SCOPE)
-	
-	set(LIB_HHEADERS ${LIB_HHEADERS}
-		gdalwarpkernel_opencl.h
-	)
-	
-	set(LIB_CSOURCES ${LIB_CSOURCES}
-		gdalwarpkernel_opencl.c
-	)
-endif(OPENCL_FOUND)
+option(USE_OPENCL "Set ON to build with OpenCL support" OFF)
+if(USE_OPENCL)
+  find_package(OpenCL)
+  if(OPENCL_FOUND)
+    include_directories(${GEOS_INCLUDE_DIRS})
+    add_definitions(-DHAVE_OPENCL)
+    set(GDAL_HAVE_OPENCL ON PARENT_SCOPE)
+
+    set(LIB_HHEADERS ${LIB_HHEADERS}
+                     gdalwarpkernel_opencl.h
+    )
+
+    set(LIB_CSOURCES ${LIB_CSOURCES}
+                     gdalwarpkernel_opencl.c
+       )
+  endif(OPENCL_FOUND)
+endif()
 
 set(GDAL_TARGET_OBJECTS ${GDAL_TARGET_OBJECTS} $<TARGET_OBJECTS:${LIB_NAME}> PARENT_SCOPE)
 add_library(${LIB_NAME} OBJECT ${LIB_HHEADERS} ${LIB_CSOURCES})
