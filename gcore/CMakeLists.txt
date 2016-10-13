@@ -48,7 +48,6 @@ set(LIB_HHEADERS
     gdal.h
     gdaljp2metadata.h
     gdal_frmts.h
-    gdal_pam.h
     gdal_priv.h
     gdal_proxy.h
     gdal_rat.h
