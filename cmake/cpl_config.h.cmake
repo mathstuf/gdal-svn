@@ -140,10 +140,6 @@
 /* For .cpp files, define as const if the declaration of iconv() needs const. */
 //#undef ICONV_CPP_CONST
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
-#define LT_OBJDIR "@LT_OBJDIR@"
-
 /* Define for Mac OSX Framework build */
 #cmakedefine MACOSX_FRAMEWORK
 
