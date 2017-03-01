@@ -56,6 +56,7 @@ ELSE(WIN32)
           # set GEOS_CONFIG to make later test happy, not used here, may not exist
           SET (GEOS_CONFIG ${GEOS_LIBRARY}/unix/bin/geos-config CACHE FILEPATH "Path to a program.")
           # version in info.plist
+          include(MacPlistMacros)
           GET_VERSION_PLIST (${GEOS_LIBRARY}/Resources/Info.plist GEOS_VERSION)
           IF (NOT GEOS_VERSION)
             MESSAGE (FATAL_ERROR "Could not determine GEOS version from framework.")
